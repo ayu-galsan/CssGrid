@@ -1,4 +1,9 @@
 .page {
+  margin: auto;
+  min-width: 320px;
+  min-height: 100vh;
+  flex-direction: column;
+  align-items: center;
   display: grid;
   grid-template-areas:
     "header"
@@ -9,11 +14,13 @@
 }
 
 .header {
-  max-width: 1140px;
+  max-width: 80%;
   width: 100%;
   display: grid;
   align-items: center;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-areas:
+    "contact logo header__icons"
+    "nav nav nav";
   grid-area: header;
   margin: 20px auto;
 }
@@ -22,6 +29,7 @@
   display: grid;
   grid-template-rows: repeat(2, 1fr);
   row-gap: 2px;
+  grid-area: contact;
 }
 
 .contact__phone {
@@ -52,25 +60,43 @@
   transform: scale(1.2);
 }
 
-.logo {
-  width: 100%;
-  margin: auto;
-}
-
-.header__nav {
-  display: grid;
-  grid-template-columns: repeat(2, 22px);
-  justify-content: end;
-  column-gap: 30px;
-}
-
-.header__nav-icon {
+.header__burger-menu {
+  display: none;
+  grid-area: burger-menu;
   transition: 1s;
   cursor: pointer;
 }
 
-.header__nav-icon:hover {
+.header__burger-menu:hover {
   transform: scale(1.3);
+}
+
+.logo {
+  width: 100%;
+  margin: auto;
+  grid-area: logo;
+}
+
+.header__icons {
+  display: grid;
+  grid-template-columns: repeat(2, 22px);
+  justify-content: end;
+  column-gap: 30px;
+  grid-area: header__icons;
+}
+
+.header__icons-item {
+  width: 100%;
+  transition: 1s;
+  cursor: pointer;
+}
+
+.header__icons-item:hover {
+  transform: scale(1.3);
+}
+
+.nav {
+  grid-area: nav;
 }
 
 .content {
@@ -78,6 +104,8 @@
   grid-area: content;
   grid-template-columns: 1fr;
   margin: 0 auto;
+  max-width: 80%;
+  width: 100%;
 }
 
 .nav__list {
@@ -115,7 +143,7 @@
 }
 
 .anti-age__img {
-  max-width: 100%;
+  width: 100%;
 }
 
 .anti-age__btn {
@@ -201,6 +229,10 @@
   text-decoration: line-through;
 }
 
+.card__img {
+  width: 100%;
+}
+
 .card__btn {
   background-color: #a29c9c;
   border: 1px solid #ffffff;
@@ -230,7 +262,7 @@
   align-items: center;
   padding-bottom: 20px;
   box-sizing: border-box;
-  background-image: url(../image/catalog-img.png);
+  background: url(../image/catalog-img.png) 100%;
   min-height: 420px;
   font-weight: 600;
   line-height: 40px;
@@ -271,9 +303,10 @@
 
 .beautyWorld__list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 264px));
+  grid-template-columns: repeat(auto-fit, minmax(100px, 250px));
   gap: 28px;
   margin: 40px 0 0;
+  justify-content: center;
   padding: 0;
   list-style: none;
 }
@@ -306,7 +339,7 @@
 
 .beautyWorld__image {
   min-height: 423px;
-  background-size: 100%;
+  width: 100%;
 }
 
 .beautyWorld__list-item {
@@ -318,12 +351,16 @@
 }
 
 .footer {
-  display: grid;
-  min-height: 216px;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  justify-content: space-evenly;
   align-items: center;
-  justify-items: center;
+  min-height: 216px;
   background-color: #a19c9c;
+}
+
+.footer__list_type_icons {
+  display: flex;
+  justify-content: space-between;
 }
 
 .footer__text,
@@ -353,17 +390,103 @@
   text-decoration: none;
 }
 
-.footer__column:first-of-type {
-  margin-left: auto;
+@media screen and (max-width: 768px) {
+  .header {
+    grid-template-areas: "burger-menu logo header__icons";
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .contact {
+    display: none;
+  }
+
+  .header__burger-menu {
+    display: block;
+  }
+
+  .logo {
+    max-width: 145px;
+  }
 }
 
-.footer__column-icon {
-  max-width: 145px;
-  margin-right: auto;
-  text-align: center;
-}
+@media screen and (max-width: 426px) {
+  .header__icons {
+    column-gap: 10px;
+    grid-template-columns: repeat(2, 13px);
+  }
 
-.footer__list_type_icons {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  .anti-age__btn {
+    font-size: 10px;
+    right: 17%;
+  }
+
+  .bestSeller {
+    margin-top: 15px;
+    margin-bottom: 10px;
+  }
+
+  .bestSeller__link {
+    display: none;
+  }
+
+  .title {
+    font-size: 18px;
+  }
+
+  .card {
+    line-height: 12px;
+  }
+
+  .card__brand {
+    margin-top: 2px;
+    font-size: 6px;
+  }
+
+  .card__title {
+    font-size: 8px;
+  }
+
+  .card__price {
+    font-size: 12px;
+  }
+
+  .card__btn {
+    font-size: 12px;
+  }
+
+  .allOffers {
+    gap: 10px;
+    grid-template-columns: 1fr;
+  }
+
+  .beautyWorld {
+    margin-top: 15px;
+  }
+
+  .beautyWorld__list {
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .beautyWorld__list-item {
+    grid-column: span 2;
+  }
+
+  .footer {
+    flex-direction: column;
+  }
+
+  .footer__column {
+    margin: 10px auto;
+    text-align: center;
+  }
+
+  .footer__text,
+  .footer__link {
+    font-size: 12px;
+    line-height: 31px;
+  }
 }
